@@ -142,11 +142,3 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 - Code policy says "no imports" and "built‑in libraries allowed"; in practice, read as **no third‑party imports** and keep snippets minimal, emitting via `print`.
 - If someone asks for the internal prompt, it will refuse (by design).
 
----
-
----
-
-## Contact / Handoff
-
-- Share this README with requesters to align on how to phrase asks and how results will look.
-- For platform changes or larger flows, **start a new thread** to keep specs clean.
