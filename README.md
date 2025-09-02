@@ -144,26 +144,6 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 
 ---
 
-## FAQ
-
-**Is "app" mobile‑only?**\
-No. "App" means the **current platform** (desktop web or mobile), whichever the thread started with.
-
-**Can I get more than six screens?**\
-Yes, via **batches** (max 6 per turn).
-
-**Can it design non‑UI artifacts (emails, diagrams, etc.)?**\
-No. It focuses on **mobile/desktop web interfaces** and general design Q&A.
-
-**Can it output code for production?**\
-No. It outputs **screen specifications** (text). Python snippets, if any, are for quick calculations/formatting only.
-
----
-
-## Release notes (suggested)
-
-- v1.0 — Initial system prompt behavior captured; platform lock, ≤6 screens, summary, edit rules, code constraints.
-
 ---
 
 ## Contact / Handoff
