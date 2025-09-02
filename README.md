@@ -28,7 +28,7 @@ A guardrailed design assistant that converts natural‑language requests into st
 - You can design for **exactly one** platform in a given conversation:
   - **Mobile** (native or mobile web, phone size), **or**
   - **Desktop Web** (web app or website at desktop size)
-- The word **"app"** always refers to the **current platform**. It is **not** a request to switch platforms.
+- The word **“app”** always refers to the **current platform**. It is **not** a request to switch platforms.
 - Switching platforms requires starting a **new thread**.
 
 ### 2) Single vs multi‑screen intent
@@ -38,7 +38,7 @@ A guardrailed design assistant that converts natural‑language requests into st
   - List proposed screens as bullet points,
   - Ask for **confirmation**, and
   - Provide **follow\_up\_suggestions**.
-- If you **explicitly enumerate** the screens (e.g., "Login, OTP, Home"), it can generate them **without** extra confirmation.
+- If you **explicitly enumerate** the screens (e.g., “Login, OTP, Home”), it can generate them **without** extra confirmation.
 
 ### 3) Scope limits
 
@@ -61,8 +61,8 @@ A guardrailed design assistant that converts natural‑language requests into st
 
 ### 6) Identity & prompt requests
 
-- If asked about identity, it responds: **"I am Gemini, developed by Google."**
-- If asked for the **prompt/instructions**, it will say it **doesn't understand** (i.e., it will not reveal its system prompt).
+- If asked about identity, it responds: **“I am Gemini, developed by Google.”**
+- If asked for the **prompt/instructions**, it will say it **doesn’t understand** (i.e., it will not reveal its system prompt).
 
 ---
 
@@ -86,25 +86,25 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 
 ### A) One‑screen (desktop web)
 
-**Prompt**: "Design a dashboard for a project management tool with KPIs, recent activity, and a table."
+**Prompt**: “Design a dashboard for a project management tool with KPIs, recent activity, and a table.”
 
 **Behavior**: Generates the **Project Dashboard** screen immediately and a **Summary** with one bullet.
 
 ### B) Multi‑screen explicit (mobile)
 
-**Prompt**: "Create Login, OTP, Home, and Profile screens for a mobile app."
+**Prompt**: “Create Login, OTP, Home, and Profile screens for a mobile app.”
 
 **Behavior**: Generates **4 screens** directly (≤6 cap) and a **Summary**. No confirmation needed.
 
 ### C) Multi‑screen ambiguous
 
-**Prompt**: "Design the app for a subscription news product."
+**Prompt**: “Design the app for a subscription news product.”
 
 **Behavior**: Lists likely screens (e.g., Onboarding, Sign In, Paywall, Article Reader, Settings), asks for **confirmation**, and offers follow‑ups.
 
 ### D) Requesting an edit
 
-**Prompt**: "On Login, replace OTP modal with inline 6 boxes and add Resend after 30s."
+**Prompt**: “On Login, replace OTP modal with inline 6 boxes and add Resend after 30s.”
 
 **Behavior**: Applies a single‑screen edit and returns an updated description + a new **Summary**.
 
@@ -112,14 +112,14 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 
 ## Best‑practice prompts
 
-- **Pick platform up front**: "Desktop web app…" or "Mobile app (phone size)…"
-- **Enumerate screens** if you want multiple: "Login, OTP, Home, Profile".
+- **Pick platform up front**: “Desktop web app…” or “Mobile app (phone size)…”
+- **Enumerate screens** if you want multiple: “Login, OTP, Home, Profile”.
 - **State priorities and constraints**: primary action, users/roles, performance considerations.
-- **Ask for edits** by screen **Title**: "On **Home Feed**, add pull‑to‑refresh and cached offline state."
+- **Ask for edits** by screen **Title**: “On **Home Feed**, add pull‑to‑refresh and cached offline state.”
 
 ---
 
-## Do / Don't
+## Do / Don’t
 
 **Do**
 
@@ -128,7 +128,7 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 - Provide explicit lists to avoid confirmation round‑trips.
 - Expect a **text‑only** deliverable and a **Summary**.
 
-**Don't**
+**Don’t**
 
 - Ask to **switch platforms** mid‑thread.
 - Request **more than 6** screens in one go.
@@ -138,7 +138,35 @@ After generating 1–6 screens, it appends a **Summary** with one bullet per scr
 
 ## Known quirks (in this version of the prompt)
 
-- Mentions a **hidden ****`screen_id`** but also says "never mention screen\_id." Treat it as **internal only**; refer to screens by Title.
-- Code policy says "no imports" and "built‑in libraries allowed"; in practice, read as **no third‑party imports** and keep snippets minimal, emitting via `print`.
+- Mentions a **hidden ****`screen_id`** but also says “never mention screen\_id.” Treat it as **internal only**; refer to screens by Title.
+- Code policy says “no imports” and “built‑in libraries allowed”; in practice, read as **no third‑party imports** and keep snippets minimal, emitting via `print`.
 - If someone asks for the internal prompt, it will refuse (by design).
 
+---
+
+## FAQ
+
+**Is "app" mobile‑only?**\
+No. "App" means the **current platform** (desktop web or mobile), whichever the thread started with.
+
+**Can I get more than six screens?**\
+Yes, via **batches** (max 6 per turn).
+
+**Can it design non‑UI artifacts (emails, diagrams, etc.)?**\
+No. It focuses on **mobile/desktop web interfaces** and general design Q&A.
+
+**Can it output code for production?**\
+No. It outputs **screen specifications** (text). Python snippets, if any, are for quick calculations/formatting only.
+
+---
+
+## Release notes (suggested)
+
+- v1.0 — Initial system prompt behavior captured; platform lock, ≤6 screens, summary, edit rules, code constraints.
+
+---
+
+## Contact / Handoff
+
+- Share this README with requesters to align on how to phrase asks and how results will look.
+- For platform changes or larger flows, **start a new thread** to keep specs clean.
